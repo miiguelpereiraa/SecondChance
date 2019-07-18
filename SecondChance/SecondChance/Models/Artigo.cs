@@ -30,11 +30,11 @@ namespace SecondChance.Models
         public string Descricao { get; set; }
 
         //Chave Forasteira para identificar o Gestor do Artigo
-        public int IdGestor { get; set; }
+        public string IdGestor { get; set; }
         public virtual ApplicationUser Gestor { get; set; }
 
         //Chave Forasteira para identificar o Dono do Artigo
-        public int IdDono { get; set; }
+        public string IdDono { get; set; }
         public virtual ApplicationUser Dono { get; set; }
 
         //Chave Forasteira para categoria
@@ -51,25 +51,6 @@ namespace SecondChance.Models
         /// Lista de recursos multimédia associados a um artigo
         /// </summary>
         public virtual ICollection<Multimedia> ListaRecMultimedia { get; set; }
-
-    }
-
-    public class ArtigoContext : DbContext {
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Artigo>()
-                        .HasRequired(m => m.Gestor)
-                        .WithMany(t => t.ListaArtigosAvaliados)
-                        .HasForeignKey(m => m.IdGestor)
-                        .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Artigo>()
-                        .HasRequired(m => m.Dono)
-                        .WithMany(t => t.ListaArtigos)
-                        .HasForeignKey(m => m.IdDono)
-                        .WillCascadeOnDelete(false);
-        }
 
     }
 }

@@ -14,6 +14,7 @@ namespace SecondChance.Models
             ListaArtigos = new HashSet<Artigo>();
         }
 
+        [Key]
         public int IdCategoria { get; set; }
 
         [Required]

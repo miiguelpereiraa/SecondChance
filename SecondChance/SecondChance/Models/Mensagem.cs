@@ -21,32 +21,12 @@ namespace SecondChance.Models
         public DateTime DataHora { get; set; }
 
         //Chave Forasteira para identificar a origem da mensagem
-        public int IdUtilOrigem { get; set; }
+        public string IdUtilOrigem { get; set; }
         public virtual ApplicationUser UtilOrigem { get; set; }
 
         //Chave Forasteira para identificar o destinatário da mensagem
-        public int IdUtilDestino { get; set; }
+        public string IdUtilDestino { get; set; }
         public virtual ApplicationUser UtilDestino { get; set; }
-
-    }
-
-    public class MensagemContext : DbContext
-    {
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Mensagem>()
-                        .HasRequired(m => m.UtilOrigem)
-                        .WithMany(t => t.ListaMesgOrigem)
-                        .HasForeignKey(m => m.IdUtilOrigem)
-                        .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Mensagem>()
-                        .HasRequired(m => m.UtilDestino)
-                        .WithMany(t => t.ListaMesgDestino)
-                        .HasForeignKey(m => m.IdUtilDestino)
-                        .WillCascadeOnDelete(false);
-        }
 
     }
 }

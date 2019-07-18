@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -90,6 +91,45 @@ namespace SecondChance.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        //Tabelas da BD
+        //public DbSet<ApplicationUser> Utilizadores { get; set; }
+        public DbSet<Artigo> Artigos { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Multimedia> RecMultimedia { get; set; }
+        public DbSet<Mensagem> Mensagens { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //eliminar a convenção de atribuir automaticamente o 'on Delete Cascade' nas FKs
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Artigo>()
+                        .HasRequired(m => m.Gestor)
+                        .WithMany(t => t.ListaArtigosAvaliados)
+                        .HasForeignKey(m => m.IdGestor)
+                        .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Artigo>()
+                        .HasRequired(m => m.Dono)
+                        .WithMany(t => t.ListaArtigos)
+                        .HasForeignKey(m => m.IdDono)
+                        .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Mensagem>()
+                        .HasRequired(m => m.UtilOrigem)
+                        .WithMany(t => t.ListaMesgOrigem)
+                        .HasForeignKey(m => m.IdUtilOrigem)
+                        .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Mensagem>()
+                        .HasRequired(m => m.UtilDestino)
+                        .WithMany(t => t.ListaMesgDestino)
+                        .HasForeignKey(m => m.IdUtilDestino)
+                        .WillCascadeOnDelete(false);
         }
     }
 }
