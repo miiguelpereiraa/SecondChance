@@ -42,6 +42,9 @@ namespace SecondChance.Models
         [Required]
         public DateTime Data_Nasc { get; set; }
 
+        [Required]
+        public string Email { get; set; }
+
         //***************************************************
 
         /// <summary>
@@ -81,16 +84,16 @@ namespace SecondChance.Models
         }
     }
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class SecondChanceDB : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
+        public SecondChanceDB()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
 
-        public static ApplicationDbContext Create()
+        public static SecondChanceDB Create()
         {
-            return new ApplicationDbContext();
+            return new SecondChanceDB();
         }
 
         //Tabelas da BD
