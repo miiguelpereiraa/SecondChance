@@ -17,16 +17,20 @@ namespace SecondChance.Models
             ListaUtilizadoresFav = new HashSet<Utilizador>();
         }
 
-        [Key]
+        [Key] //Identifica a chave primária
         public int IdArtigo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage="O preenchimento do {0} é obrigatório.")]
+        [StringLength(75, ErrorMessage = "O {0} deverá ter, no máximo, {1} caracteres.")]
         public string Titulo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O preenchimento do {0} é obrigatório.")]
+        [StringLength(10, ErrorMessage = "O {0} deverá ter, no máximo, {1} caracteres.")]
+        [RegularExpression("^([0-9]{0,5}((.)[0-9]{0,3}))$", ErrorMessage ="Este campo apenas poderá conter números.")]
         public decimal Preco { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O preenchimento da {0} é obrigatório.")]
+        [StringLength(500, ErrorMessage = "O {0} deverá ter, no máximo, {1} caracteres.")]
         public string Descricao { get; set; }
 
         //Chave Forasteira para identificar o Gestor do Artigo
