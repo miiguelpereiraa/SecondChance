@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace SecondChance.Models
-{
+
+namespace SecondChance.Models{
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
@@ -34,6 +34,12 @@ namespace SecondChance.Models
         {
             return new SecondChanceDB();
         }
+
+        static SecondChanceDB() {
+            // Set the database intializer which is run once during application start
+            // This seeds the database with admin user credentials and admin role
+            Database.SetInitializer<SecondChanceDB>(new ApplicationDbInitializer());
+            }
 
         //Tabelas da BD
         public DbSet<Utilizador> Utilizadores { get; set; }
@@ -73,5 +79,7 @@ namespace SecondChance.Models
                         .HasForeignKey(m => m.IdUtilDestino)
                         .WillCascadeOnDelete(false);
         }
+
     }
+
 }
