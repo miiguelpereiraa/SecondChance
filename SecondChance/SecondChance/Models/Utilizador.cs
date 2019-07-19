@@ -46,7 +46,7 @@ namespace SecondChance.Models {
 
         [Required(ErrorMessage = "Este campo é de preenchimento obrigatório.")]
         //Está a dar erro de validação
-        //[RegularExpression("[0-9][0-9][0-9][0-9]+-+[0-1][0-9]+-+[0-3][0-9]", ErrorMessage = "A {0} deverá esta no formato AAAA-MM-DD.")]
+        [RegularExpression("^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[12])\\1(?:19|20)\\d\\d$", ErrorMessage = "A {0} deverá esta no formato AAAA-MM-DD.")]
         public DateTime Data_Nasc { get; set; }
 
         //***************************************************

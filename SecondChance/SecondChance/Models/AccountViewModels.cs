@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SecondChance.Models
@@ -79,7 +80,18 @@ namespace SecondChance.Models
         [Display(Name = "Confirme a password")]
         [Compare("Password", ErrorMessage = "A sua Password e a Password de Confirmação não combinam.")]
         public string ConfirmPassword { get; set; }
-    }
+        [Required]
+        [Display(Name = "Localidade")]
+        public string Localidade { get; set; }
+        [Required]
+        [Display(Name = "Sexo")]
+        public char Sexo { get; set; }
+        [Required]
+        [Display(Name = "Data de Nascimento")]
+       // [RegularExpression("^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[12])\\1(?:19|20)\\d\\d$", ErrorMessage = "A {0} deverá esta no formato AAAA-MM-DD.")]
+
+        public DateTime Data_Nasc { get; set; }
+        }
 
     public class ResetPasswordViewModel
     {
