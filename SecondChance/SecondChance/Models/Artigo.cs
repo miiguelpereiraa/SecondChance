@@ -14,7 +14,7 @@ namespace SecondChance.Models
         public Artigo()
         {
             //instanciação do ICollection de utilizadores
-            ListaUtilizadoresFav = new HashSet<ApplicationUser>();
+            ListaUtilizadoresFav = new HashSet<Utilizador>();
         }
 
         [Key]
@@ -30,12 +30,12 @@ namespace SecondChance.Models
         public string Descricao { get; set; }
 
         //Chave Forasteira para identificar o Gestor do Artigo
-        public string IdGestor { get; set; }
-        public virtual ApplicationUser Gestor { get; set; }
+        public int IdGestor { get; set; }
+        public virtual Utilizador Gestor { get; set; }
 
         //Chave Forasteira para identificar o Dono do Artigo
-        public string IdDono { get; set; }
-        public virtual ApplicationUser Dono { get; set; }
+        public int IdDono { get; set; }
+        public virtual Utilizador Dono { get; set; }
 
         //Chave Forasteira para categoria
         [ForeignKey("Categoria")]
@@ -45,7 +45,7 @@ namespace SecondChance.Models
         /// <summary>
         /// Lista de utilizadores para exprimir o relacionamento para a lista de favoritos (M - N) entre Utilizadore e Artigo
         /// </summary>
-        public virtual ICollection<ApplicationUser> ListaUtilizadoresFav { get; set; }
+        public virtual ICollection<Utilizador> ListaUtilizadoresFav { get; set; }
 
         /// <summary>
         /// Lista de recursos multimédia associados a um artigo

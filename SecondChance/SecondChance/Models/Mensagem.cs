@@ -21,12 +21,12 @@ namespace SecondChance.Models
         public DateTime DataHora { get; set; }
 
         //Chave Forasteira para identificar a origem da mensagem
-        public string IdUtilOrigem { get; set; }
-        public virtual ApplicationUser UtilOrigem { get; set; }
+        public int IdUtilOrigem { get; set; }
+        public virtual Utilizador UtilOrigem { get; set; }
 
         //Chave Forasteira para identificar o destinatário da mensagem
-        public string IdUtilDestino { get; set; }
-        public virtual ApplicationUser UtilDestino { get; set; }
+        public int IdUtilDestino { get; set; }
+        public virtual Utilizador UtilDestino { get; set; }
 
     }
 }
