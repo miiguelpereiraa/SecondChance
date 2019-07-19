@@ -44,10 +44,6 @@ namespace SecondChance.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            //eliminar a convenção de atribuir automaticamente o 'on Delete Cascade' nas FKs
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Artigo>()
                         .HasRequired(m => m.Gestor)
@@ -72,6 +68,14 @@ namespace SecondChance.Models
                         .WithMany(t => t.ListaMesgDestino)
                         .HasForeignKey(m => m.IdUtilDestino)
                         .WillCascadeOnDelete(false);
+
+            //eliminar a convenção de atribuir automaticamente o 'on Delete Cascade' nas FKs
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
