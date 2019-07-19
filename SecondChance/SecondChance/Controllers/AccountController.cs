@@ -101,6 +101,11 @@ namespace SecondChance.Controllers
             {
                 return View("Error");
             }
+            var user = await UserManager.FindByIdAsync(await SignInManager.GetVerifiedUserIdAsync());
+            if (user != null)
+            {
+                ViewBag.Status = "For DEMO purposes the current " + provider + " code is: " + await UserManager.GenerateTwoFactorTokenAsync(user.Id, provider);
+            }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
 
