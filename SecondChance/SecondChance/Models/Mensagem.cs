@@ -14,7 +14,7 @@ namespace SecondChance.Models
         [Key]
         public int IdMensagem { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="O preenchimento deste campo é obrigatório.")]
         public string Conteudo { get; set; }
 
         [Required]

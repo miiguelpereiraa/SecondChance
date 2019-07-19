@@ -13,9 +13,10 @@ namespace SecondChance.Models
         [Key]
         public int IdMultimedia { get; set; }
 
+        [Required(ErrorMessage = "O preenchimento deste campo é obrigatório.")]
         public string Designacao { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "O preenchimento deste campo é obrigatório.")]
         public string Tipo { get; set; }
 
         //Chave Forasteira para Artigo
