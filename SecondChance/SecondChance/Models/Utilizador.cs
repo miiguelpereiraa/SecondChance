@@ -45,7 +45,8 @@ namespace SecondChance.Models {
         public string Sexo { get; set; }
 
         [Required(ErrorMessage = "Este campo é de preenchimento obrigatório.")]
-        [RegularExpression("[1-2][0-9][0-9][0-9]+-+[0-1][0-9]+-+[0-3][0-9]", ErrorMessage = "A {0} deverá esta no formato AAAA-MM-DD.")]
+        //Está a dar erro de validação
+        //[RegularExpression("[0-9][0-9][0-9][0-9]+-+[0-1][0-9]+-+[0-3][0-9]", ErrorMessage = "A {0} deverá esta no formato AAAA-MM-DD.")]
         public DateTime Data_Nasc { get; set; }
 
         //***************************************************
