@@ -25,7 +25,6 @@ namespace SecondChance.Models
         public string Titulo { get; set; }
 
         [Required(ErrorMessage = "O preenchimento do {0} é obrigatório.")]
-        [StringLength(10, ErrorMessage = "O {0} deverá ter, no máximo, {1} caracteres.")]
         [RegularExpression("^([0-9]{0,5}((.)[0-9]{0,3}))$", ErrorMessage ="Este campo apenas poderá conter números.")]
         public decimal Preco { get; set; }
 
