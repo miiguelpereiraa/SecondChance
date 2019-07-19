@@ -243,6 +243,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imagens\berb1.jpg" />
+    <Content Include="Imagens\bmw1.jpg" />
+    <Content Include="Imagens\bmw2.jpg" />
+    <Content Include="Imagens\comp1.jpg" />
+    <Content Include="Imagens\coz1.jpg" />
+    <Content Include="Imagens\guit1.jpg" />
+    <Content Include="Imagens\vestid1.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
