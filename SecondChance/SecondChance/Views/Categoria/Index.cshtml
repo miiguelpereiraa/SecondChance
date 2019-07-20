@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<SecondChance.Models.Categoria>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Categorias";
 }
 
-<h2>Index</h2>
+<h2>Categorias</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar Nova Categoria", "Create")
 </p>
 <table class="table">
     <tr>
@@ -23,9 +23,9 @@
             @Html.DisplayFor(modelItem => item.Designacao)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdCategoria }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdCategoria }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdCategoria })
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdCategoria }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IdCategoria }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdCategoria })
         </td>
     </tr>
 }
