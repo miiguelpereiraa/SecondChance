@@ -17,6 +17,7 @@ namespace SecondChance.Models
         [Key]
         public int IdCategoria { get; set; }
 
+        [Display(Name ="Categoria")]
         [Required]
         public string Designacao { get; set; }
 

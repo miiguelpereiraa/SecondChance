@@ -7,24 +7,40 @@
 <h2>Lista de Artigos</h2>
 
 <p>
-    @Html.ActionLink("Inserir Artigo", "Create")
+    @if (User.IsInRole("Utilizador"))
+    {
+        @Html.ActionLink("Inserir Artigo", "Create")
+    }
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Pesquisar Artigo: @Html.TextBox("searchString")
+        <input type="submit" value="Pesquisar" />
+    </p>
+}
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ListaRecMultimedia)
+           
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Categoria.Designacao)
+            @Html.ActionLink("Categoria", "Index", new { sortOrder = ViewBag.ordenarCategoria })
+            @*@Html.DisplayNameFor(model => model.Categoria.Designacao)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Dono.Nome)
+            @Html.ActionLink("Nome do Utilizador", "Index", new { sortOrder = ViewBag.ordenarNome })
+            @*@Html.DisplayNameFor(model => model.Dono.Nome)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Titulo)
+            @Html.ActionLink("Título", "Index", new { sortOrder = ViewBag.ordenarTitulo})
+            @*@Html.DisplayNameFor(model => model.Titulo)*@
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Preco)
+            @Html.ActionLink("Preço", "Index", new { sortOrder = ViewBag.ordenarPreco })
+            @*@Html.DisplayNameFor(model => model.Preco)*@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Descricao)
@@ -47,7 +63,7 @@
             @Html.DisplayFor(modelItem => item.Titulo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Preco)
+            @Html.DisplayFor(modelItem => item.Preco) €
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descricao)
@@ -59,11 +75,11 @@
                 {
                     <text>
                         @Html.ActionLink("Edit", "Edit", new { id = item.IdArtigo }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.IdArtigo })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdArtigo }) |
                     </text>
                 }
                 <text>
-                    | @Html.ActionLink("Details", "Details", new { id = item.IdArtigo })
+                    @Html.ActionLink("Details", "Details", new { id = item.IdArtigo })
                 </text>
 
             }

@@ -24,6 +24,7 @@ namespace SecondChance.Models {
         [Key]
         public int IdUtilizador { get; set; }
 
+        [Display(Name ="Nome do Utilizador")]
         [Required(ErrorMessage = "Este campo é de preenchimento obrigatório.")]
         [StringLength(50, ErrorMessage = "O {0} deverá conter {1} caracteres no máximo.")]
         [RegularExpression("[A-ZÁÉÍÓÚ][a-záéíóúàèÌòùãõîôûâç]+(( | e | de | do | das | da | dos |-|')[A-ZÁÉÍÓÚ][a-zzáéíóúàèÌòùãõîôûâç]+)*",

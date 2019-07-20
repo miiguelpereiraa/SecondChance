@@ -15,9 +15,46 @@ namespace SecondChance.Controllers
         private SecondChanceDB db = new SecondChanceDB();
 
         // GET: Artigo
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
+            ViewBag.ordenarTitulo = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.ordenarPreco = sortOrder == "preco" ? "preco_desc" : "preco";
+            ViewBag.ordenarCategoria = sortOrder == "cat" ? "cat_desc" : "cat";
+            ViewBag.ordenarNome = sortOrder == "nome" ? "nome_desc" : "nome";
             var artigos = db.Artigo.Include(a => a.Categoria).Include(a => a.Dono).Include(a => a.Gestor);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                artigos = artigos.Where(a => a.Titulo.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    artigos = artigos.OrderByDescending(a => a.Titulo);
+                    break;
+                case "preco":
+                    artigos = artigos.OrderBy(a => a.Preco);
+                    break;
+                case "preco_desc":
+                    artigos = artigos.OrderByDescending(a => a.Preco);
+                    break;
+                case "cat":
+                    artigos = artigos.OrderBy(a => a.Categoria.Designacao);
+                    break;
+                case "cat_desc":
+                    artigos = artigos.OrderByDescending(a => a.Categoria.Designacao);
+                    break;
+                case "nome":
+                    artigos = artigos.OrderBy(a => a.Dono.Nome);
+                    break;
+                case "nome_desc":
+                    artigos = artigos.OrderByDescending(a => a.Dono.Nome);
+                    break;
+                default:
+                    artigos = artigos.OrderBy(a => a.Titulo);
+                    break;
+            }
             return View(artigos.ToList());
         }
 
