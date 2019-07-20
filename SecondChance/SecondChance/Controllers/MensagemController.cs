@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace SecondChance.Models
 {
+    [Authorize]
     public class MensagemsController : Controller
     {
         private SecondChanceDB db = new SecondChanceDB();
