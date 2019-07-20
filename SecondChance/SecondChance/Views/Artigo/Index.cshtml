@@ -72,8 +72,10 @@
                 if (User.Identity.Name == item.Dono.UsernameID)
                 {
                     <text>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.IdArtigo }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.IdArtigo }) |
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdArtigo })
+                        <br />
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdArtigo })
+                        <br />
                     </text>
                 }
                 <text>

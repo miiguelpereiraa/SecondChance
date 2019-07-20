@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using SecondChance.Models;
 using PagedList;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SecondChance.Controllers
 {
@@ -25,7 +27,8 @@ namespace SecondChance.Controllers
             ViewBag.ordenarPreco = sortOrder == "preco" ? "preco_desc" : "preco";
             ViewBag.ordenarCategoria = sortOrder == "cat" ? "cat_desc" : "cat";
             ViewBag.ordenarNome = sortOrder == "nome" ? "nome_desc" : "nome";
-            var artigos = db.Artigo.Include(a => a.Categoria).Include(a => a.Dono).Include(a => a.Gestor);
+            var artigos = db.Artigo.Include(a => a.Categoria).Include(a => a.Dono);
+
 
             if(searchString != null)
             {
@@ -77,6 +80,7 @@ namespace SecondChance.Controllers
             return View(artigos.ToPagedList(pageNumber, pageSize));
         }
 
+        [Authorize(Roles = "Gestores, Utilizador")]
         // GET: Artigo/Details/5
         public ActionResult Details(int? id)
         {
@@ -92,6 +96,7 @@ namespace SecondChance.Controllers
             return View(artigo);
         }
 
+        [Authorize(Roles = "Gestores, Utilizador")]
         // GET: Artigo/Create
         public ActionResult Create()
         {
@@ -104,12 +109,16 @@ namespace SecondChance.Controllers
         // POST: Artigo/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Gestores, Utilizador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdArtigo,Titulo,Preco,Descricao,IdGestor,IdDono,IdCategoria")] Artigo artigo)
+        public ActionResult Create([Bind(Include = "Titulo,Preco,Descricao,IdCategoria")] Artigo artigo)
         {
             if (ModelState.IsValid)
             {
+
+                //atribuir valor a idArtigo, idGestor, idDono
+
                 db.Artigo.Add(artigo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -117,10 +126,11 @@ namespace SecondChance.Controllers
 
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Designacao", artigo.IdCategoria);
             ViewBag.IdDono = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdDono);
-            ViewBag.IdGestor = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdGestor);
+            //ViewBag.IdGestor = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdGestor);
             return View(artigo);
         }
 
+        [Authorize(Roles = "Gestores, Utilizador")]
         // GET: Artigo/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -135,13 +145,14 @@ namespace SecondChance.Controllers
             }
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Designacao", artigo.IdCategoria);
             ViewBag.IdDono = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdDono);
-            ViewBag.IdGestor = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdGestor);
+            //ViewBag.IdGestor = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdGestor);
             return View(artigo);
         }
 
         // POST: Artigo/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Gestores, Utilizador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdArtigo,Titulo,Preco,Descricao,IdGestor,IdDono,IdCategoria")] Artigo artigo)
@@ -154,10 +165,11 @@ namespace SecondChance.Controllers
             }
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Designacao", artigo.IdCategoria);
             ViewBag.IdDono = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdDono);
-            ViewBag.IdGestor = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdGestor);
+            //ViewBag.IdGestor = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdGestor);
             return View(artigo);
         }
 
+        [Authorize(Roles = "Gestores, Utilizador")]
         // GET: Artigo/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -173,6 +185,7 @@ namespace SecondChance.Controllers
             return View(artigo);
         }
 
+        [Authorize(Roles = "Gestores, Utilizador")]
         // POST: Artigo/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

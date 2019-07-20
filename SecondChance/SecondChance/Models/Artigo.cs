@@ -35,9 +35,11 @@ namespace SecondChance.Models
         [StringLength(500, ErrorMessage = "O {0} deverá ter, no máximo, {1} caracteres.")]
         public string Descricao { get; set; }
 
-        //Chave Forasteira para identificar o Gestor do Artigo
-        public int IdGestor { get; set; }
-        public virtual Utilizador Gestor { get; set; }
+        public bool Validado { get; set; }
+
+        ////Chave Forasteira para identificar o Gestor do Artigo
+        //public int IdGestor { get; set; }
+        //public virtual Utilizador Gestor { get; set; }
 
         //Chave Forasteira para identificar o Dono do Artigo
         public int IdDono { get; set; }

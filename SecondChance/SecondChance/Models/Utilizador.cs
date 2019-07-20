@@ -9,8 +9,8 @@ namespace SecondChance.Models {
 
         public Utilizador()
         {
-            //instanciação do ICollection de Artigo Avaliados
-            ListaArtigosAvaliados = new HashSet<Artigo>();
+            ////instanciação do ICollection de Artigo Avaliados
+            //ListaArtigosAvaliados = new HashSet<Artigo>();
 
             //instanciação do ICollection de Artigo
             ListaArtigos = new HashSet<Artigo>();
@@ -57,10 +57,10 @@ namespace SecondChance.Models {
 
         //***************************************************
 
-        /// <summary>
-        /// Lista de Artigo avaliados por um Gestor
-        /// </summary>
-        public virtual ICollection<Artigo> ListaArtigosAvaliados { get; set; }
+        ///// <summary>
+        ///// Lista de Artigo avaliados por um Gestor
+        ///// </summary>
+        //public virtual ICollection<Artigo> ListaArtigosAvaliados { get; set; }
 
         /// <summary>
         /// Lista de Artigo publicados por um utilizador
