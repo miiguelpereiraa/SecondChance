@@ -41,8 +41,9 @@ namespace SecondChance.Models {
         public string Localidade { get; set; }
 
         [Required]
-        [StringLength(1)]
-        [RegularExpression("[MmFf]")]
+        [StringLength(9)]
+        [RegularExpression("Masculino|Feminino", ErrorMessage = "P.f. introduza Masculino ou Feminino")]
+        [Display(Name = "Sexo")]
         public string Sexo { get; set; }
 
         [Required(ErrorMessage = "Este campo é de preenchimento obrigatório.")]

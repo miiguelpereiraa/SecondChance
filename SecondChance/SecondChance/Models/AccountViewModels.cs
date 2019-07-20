@@ -67,18 +67,21 @@ namespace SecondChance.Models
     {
 
         [Required]
-        [Display(Name = "Introduza o seu Nome")]
+        [StringLength(50, ErrorMessage = "O {0} deverá conter {1} caracteres no máximo.")]
+        [RegularExpression("[A-ZÁÉÍÓÚ][a-záéíóúàèÌòùãõîôûâç]+(( | e | de | do | das | da | dos |-|')[A-ZÁÉÍÓÚ][a-zzáéíóúàèÌòùãõîôûâç]+)*",
+             ErrorMessage = "O {0} só pode conter letras. Cada palavra deve começar com Maiúscula.")]
+        [Display(Name = "Nome")]
         public string Nome { get; set; }
 
         [Required]
         [EmailAddress]
-        [Display(Name = "Introduza o seu Email")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "A {0} deve ter no minimo {2} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Introduza a Password")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
@@ -86,19 +89,23 @@ namespace SecondChance.Models
         [Compare("Password", ErrorMessage = "A sua Password e a Password de Confirmação não combinam.")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Este campo é de preenchimento obrigatório.")]
+        [StringLength(30, ErrorMessage = "A {0} deverá conter {1} caracteres no máximo.")]
+        [RegularExpression("[A-ZÁÉÍÓÚ][a-záéíóúàèÌòùãõîôûâç]+(( | e | de | do | das | da | dos |-|')[A-ZÁÉÍÓÚ][a-zzáéíóúàèÌòùãõîôûâç]+)*",
+             ErrorMessage = "A {0} só pode conter letras. Cada palavra deve começar com Maiúscula.")]
         [Display(Name = "Localidade")]
         public string Localidade { get; set; }
 
         [Required]
-        [StringLength(1)]
-        [RegularExpression("[MmFf]")]
+        [StringLength(9)]
+        [RegularExpression("Masculino|Feminino", ErrorMessage = "P.f. introduza Masculino ou Feminino")]
         [Display(Name = "Sexo")]
         public string Sexo { get; set; }
 
         [Required]
         [Display(Name = "Data de Nascimento")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime DataNasc { get; set; }
 
         }

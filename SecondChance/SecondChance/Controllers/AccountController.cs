@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity.Validation;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -195,14 +196,27 @@ namespace SecondChance.Controllers
 
         private bool AddUtilizador(string nome, string username, string localidade, string sexo, DateTime dataNasc)
         {
-            Utilizador utilizador = new Utilizador();
-            utilizador.Nome = nome;
-            utilizador.UsernameID = username;
-            utilizador.Localidade = localidade;
-            utilizador.Sexo = sexo;
-            utilizador.DataNasc = dataNasc;
-            db.Utilizador.Add(utilizador);
-            db.SaveChanges();
+            try { 
+                Utilizador utilizador = new Utilizador();
+                utilizador.Nome = nome;
+                utilizador.UsernameID = username;
+                utilizador.Localidade = localidade;
+                utilizador.Sexo = sexo;
+                utilizador.DataNasc = dataNasc.Date;
+                db.Utilizador.Add(utilizador);
+                db.SaveChanges();
+                return true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
             return false;
         }
 

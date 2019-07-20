@@ -96,10 +96,10 @@ namespace SecondChance.Migrations
 
             var utilizadores = new List<Utilizador>
             {
-                new Utilizador {IdUtilizador=1, Nome="Miguel Pereira", UsernameID="miguelpe@example.com", Localidade="Vila Nova da Barquinha", Sexo="M", DataNasc=new DateTime(1995, 7, 10)},
-                new Utilizador {IdUtilizador=2, Nome="Tiago Rodrigues", UsernameID="tiagoro@example.com", Localidade="Tomar", Sexo="M", DataNasc=new DateTime(1995, 7, 10)},
-                new Utilizador {IdUtilizador=3, Nome="José Armando", UsernameID="jarmando@example.com", Localidade="Torres Novas", Sexo="M", DataNasc=new DateTime(1990, 12, 18)},
-                new Utilizador {IdUtilizador=4, Nome="Joana Santos", UsernameID="jsantos@example.com", Localidade="Entroncamento", Sexo="F", DataNasc=new DateTime(1993, 2, 15)}
+                new Utilizador {IdUtilizador=1, Nome="Miguel Pereira", UsernameID="miguelpe@example.com", Localidade="Vila Nova da Barquinha", Sexo="Masculino", DataNasc=new DateTime(1995, 7, 10)},
+                new Utilizador {IdUtilizador=2, Nome="Tiago Rodrigues", UsernameID="tiagoro@example.com", Localidade="Tomar", Sexo="Masculino", DataNasc=new DateTime(1995, 7, 10)},
+                new Utilizador {IdUtilizador=3, Nome="José Armando", UsernameID="jarmando@example.com", Localidade="Torres Novas", Sexo="Masculino", DataNasc=new DateTime(1990, 12, 18)},
+                new Utilizador {IdUtilizador=4, Nome="Joana Santos", UsernameID="jsantos@example.com", Localidade="Entroncamento", Sexo="Feminino", DataNasc=new DateTime(1993, 2, 15)}
             };
             utilizadores.ForEach(uu => context.Utilizador.AddOrUpdate(u => u.IdUtilizador, uu));
             context.SaveChanges();
