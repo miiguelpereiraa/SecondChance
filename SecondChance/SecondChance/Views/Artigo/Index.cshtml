@@ -4,21 +4,21 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista de Artigos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Inserir Artigo", "Create")
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ListaRecMultimedia)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Categoria.Designacao)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Dono.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gestor.Nome)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Titulo)
@@ -35,13 +35,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            <img src="~/Imagens/@item.ListaRecMultimedia.First().Designacao" alt="Image" width="100" />
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Categoria.Designacao)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Dono.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gestor.Nome)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Titulo)
@@ -53,9 +53,20 @@
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdArtigo }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdArtigo }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdArtigo })
+            @if (User.IsInRole("Utilizador"))
+            {
+                if (User.Identity.Name == item.Dono.UsernameID)
+                {
+                    <text>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.IdArtigo }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.IdArtigo })
+                    </text>
+                }
+                <text>
+                    | @Html.ActionLink("Details", "Details", new { id = item.IdArtigo })
+                </text>
+
+            }
         </td>
     </tr>
 }

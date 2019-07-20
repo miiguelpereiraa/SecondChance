@@ -121,7 +121,7 @@ namespace SecondChance.Migrations
 
             var artigos = new List<Artigo>
             {
-                new Artigo {IdArtigo=1, Titulo="Macbook Air 13", Preco=350, Descricao="Computador em óptimo estado.", IdGestor=1, IdDono=2, IdCategoria=1},
+                new Artigo {IdArtigo=1, Titulo="Macbook Air 13", Preco=350, Descricao="Computador em óptimo estado.", IdGestor=1, IdDono=1, IdCategoria=1},
                 new Artigo {IdArtigo=2, Titulo="Guitarra Elétrica Fender", Preco=150, Descricao="Guitarra em bom estado, com cordas novas.", IdGestor=1, IdDono=3, IdCategoria=7},
                 new Artigo {IdArtigo=3, Titulo="BMW 318", Preco=10000, Descricao="Carro como novo, apenas com pneus novos.", IdGestor=1, IdDono=2, IdCategoria=6},
                 new Artigo {IdArtigo=4, Titulo="Cozinha de brincar", Preco=25, Descricao="Cozinha para crianças até 3 anos.", IdGestor=2, IdDono=4, IdCategoria=2},

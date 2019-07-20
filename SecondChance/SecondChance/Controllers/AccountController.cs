@@ -82,7 +82,8 @@ namespace SecondChance.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Artigo");
+                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -169,7 +170,7 @@ namespace SecondChance.Controllers
                     bool addResult = AddUtilizador(model.Nome, model.Email, model.Localidade, model.Sexo, model.DataNasc);
 
                     if (addResult)
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Artigo");
                     else
                         //Devolver mensagem de erro indicando que algo correu mal com a criação do utilizador
                         return View(model);
