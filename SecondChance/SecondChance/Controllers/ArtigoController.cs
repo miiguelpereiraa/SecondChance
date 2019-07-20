@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SecondChance.Models;
+using PagedList;
 
 namespace SecondChance.Controllers
 {
@@ -15,13 +16,28 @@ namespace SecondChance.Controllers
         private SecondChanceDB db = new SecondChanceDB();
 
         // GET: Artigo
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+
+            ViewBag.CurrentSort = sortOrder;
+
             ViewBag.ordenarTitulo = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.ordenarPreco = sortOrder == "preco" ? "preco_desc" : "preco";
             ViewBag.ordenarCategoria = sortOrder == "cat" ? "cat_desc" : "cat";
             ViewBag.ordenarNome = sortOrder == "nome" ? "nome_desc" : "nome";
             var artigos = db.Artigo.Include(a => a.Categoria).Include(a => a.Dono).Include(a => a.Gestor);
+
+            if(searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -55,7 +71,10 @@ namespace SecondChance.Controllers
                     artigos = artigos.OrderBy(a => a.Titulo);
                     break;
             }
-            return View(artigos.ToList());
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(artigos.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Artigo/Details/5
