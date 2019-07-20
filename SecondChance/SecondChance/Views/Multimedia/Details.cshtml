@@ -1,0 +1,42 @@
+﻿@model SecondChance.Models.Multimedia
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Multimedia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Artigo.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artigo.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Designacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Designacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tipo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdMultimedia }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

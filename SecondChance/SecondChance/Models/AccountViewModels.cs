@@ -65,6 +65,11 @@ namespace SecondChance.Models
 
     public class RegisterViewModel
     {
+
+        [Required]
+        [Display(Name = "Introduza o seu Nome")]
+        public string Nome { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Introduza o seu Email")]
@@ -80,17 +85,22 @@ namespace SecondChance.Models
         [Display(Name = "Confirme a password")]
         [Compare("Password", ErrorMessage = "A sua Password e a Password de Confirmação não combinam.")]
         public string ConfirmPassword { get; set; }
+
         [Required]
         [Display(Name = "Localidade")]
         public string Localidade { get; set; }
+
         [Required]
+        [StringLength(1)]
+        [RegularExpression("[MmFf]")]
         [Display(Name = "Sexo")]
-        public char Sexo { get; set; }
+        public string Sexo { get; set; }
+
         [Required]
         [Display(Name = "Data de Nascimento")]
-       // [RegularExpression("^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[12])\\1(?:19|20)\\d\\d$", ErrorMessage = "A {0} deverá esta no formato AAAA-MM-DD.")]
+        [DataType(DataType.Date)]
+        public DateTime DataNasc { get; set; }
 
-        public DateTime Data_Nasc { get; set; }
         }
 
     public class ResetPasswordViewModel

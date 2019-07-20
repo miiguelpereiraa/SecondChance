@@ -42,11 +42,11 @@ namespace SecondChance.Models{
             }
 
         //Tabelas da BD
-        public DbSet<Utilizador> Utilizadores { get; set; }
-        public DbSet<Artigo> Artigos { get; set; }
-        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Utilizador> Utilizador { get; set; }
+        public DbSet<Artigo> Artigo { get; set; }
+        public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Multimedia> RecMultimedia { get; set; }
-        public DbSet<Mensagem> Mensagens { get; set; }
+        public DbSet<Mensagem> Mensagem { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

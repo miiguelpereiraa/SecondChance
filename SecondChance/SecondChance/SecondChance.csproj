@@ -217,8 +217,12 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArtigoController.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MultimediaController.cs" />
+    <Compile Include="Controllers\UtilizadorController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,6 +233,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Mensagem.cs" />
+    <Compile Include="Controllers\MensagemController.cs" />
     <Compile Include="Models\Multimedia.cs" />
     <Compile Include="Models\Utilizador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -297,6 +302,31 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Utilizador\Create.cshtml" />
+    <Content Include="Views\Utilizador\Delete.cshtml" />
+    <Content Include="Views\Utilizador\Details.cshtml" />
+    <Content Include="Views\Utilizador\Edit.cshtml" />
+    <Content Include="Views\Utilizador\Index.cshtml" />
+    <Content Include="Views\Multimedia\Create.cshtml" />
+    <Content Include="Views\Multimedia\Delete.cshtml" />
+    <Content Include="Views\Multimedia\Details.cshtml" />
+    <Content Include="Views\Multimedia\Edit.cshtml" />
+    <Content Include="Views\Multimedia\Index.cshtml" />
+    <Content Include="Views\Mensagem\Create.cshtml" />
+    <Content Include="Views\Mensagem\Delete.cshtml" />
+    <Content Include="Views\Mensagem\Details.cshtml" />
+    <Content Include="Views\Mensagem\Edit.cshtml" />
+    <Content Include="Views\Mensagem\Index.cshtml" />
+    <Content Include="Views\Categoria\Create.cshtml" />
+    <Content Include="Views\Categoria\Delete.cshtml" />
+    <Content Include="Views\Categoria\Details.cshtml" />
+    <Content Include="Views\Categoria\Edit.cshtml" />
+    <Content Include="Views\Categoria\Index.cshtml" />
+    <Content Include="Views\Artigo\Create.cshtml" />
+    <Content Include="Views\Artigo\Delete.cshtml" />
+    <Content Include="Views\Artigo\Details.cshtml" />
+    <Content Include="Views\Artigo\Edit.cshtml" />
+    <Content Include="Views\Artigo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

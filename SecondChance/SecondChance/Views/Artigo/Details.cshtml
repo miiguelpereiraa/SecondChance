@@ -1,0 +1,66 @@
+﻿@model SecondChance.Models.Artigo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Artigo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.Designacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Designacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Dono.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dono.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gestor.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gestor.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Preco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Preco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descricao)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdArtigo }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

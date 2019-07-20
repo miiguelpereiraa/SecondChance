@@ -9,13 +9,13 @@ namespace SecondChance.Models {
 
         public Utilizador()
         {
-            //instanciação do ICollection de Artigos Avaliados
+            //instanciação do ICollection de Artigo Avaliados
             ListaArtigosAvaliados = new HashSet<Artigo>();
 
-            //instanciação do ICollection de Artigos
+            //instanciação do ICollection de Artigo
             ListaArtigos = new HashSet<Artigo>();
 
-            //instanciação do ICollection de Artigos favoritos
+            //instanciação do ICollection de Artigo favoritos
             ListaFavoritos = new HashSet<Artigo>();
         }
 
@@ -31,6 +31,7 @@ namespace SecondChance.Models {
         public string Nome { get; set; }
 
         //Chave forasteira que liga um utilizador ao seu respectivo user
+        [Display(Name = "Username")]
         public string UsernameID { get; set; }
 
         [Required(ErrorMessage = "Este campo é de preenchimento obrigatório.")]
@@ -46,33 +47,36 @@ namespace SecondChance.Models {
 
         [Required(ErrorMessage = "Este campo é de preenchimento obrigatório.")]
         //Está a dar erro de validação
-        [RegularExpression("^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[12])\\1(?:19|20)\\d\\d$", ErrorMessage = "A {0} deverá esta no formato AAAA-MM-DD.")]
-        public DateTime Data_Nasc { get; set; }
+        //[RegularExpression("^(?:0[1-9]|[12]\\d|3[01])([\\/.-])(?:0[1-9]|1[12])\\1(?:19|20)\\d\\d$", ErrorMessage = "A {0} deverá esta no formato AAAA-MM-DD.")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        [Display(Name = "Data de Nascimento")]
+        public DateTime DataNasc { get; set; }
 
         //***************************************************
 
         /// <summary>
-        /// Lista de Artigos avaliados por um Gestor
+        /// Lista de Artigo avaliados por um Gestor
         /// </summary>
         public virtual ICollection<Artigo> ListaArtigosAvaliados { get; set; }
 
         /// <summary>
-        /// Lista de Artigos publicados por um utilizador
+        /// Lista de Artigo publicados por um utilizador
         /// </summary>
         public virtual ICollection<Artigo> ListaArtigos { get; set; }
 
         /// <summary>
-        /// Lista de Artigos favoritos de um utilizador
+        /// Lista de Artigo favoritos de um utilizador
         /// </summary>
         public virtual ICollection<Artigo> ListaFavoritos { get; set; }
 
         /// <summary>
-        /// Lista de Mensagens enviadas
+        /// Lista de Mensagem enviadas
         /// </summary>
         public virtual ICollection<Mensagem> ListaMesgOrigem { get; set; }
 
         /// <summary>
-        /// Lista de Mensagens recebidas
+        /// Lista de Mensagem recebidas
         /// </summary>
         public virtual ICollection<Mensagem> ListaMesgDestino { get; set; }
 

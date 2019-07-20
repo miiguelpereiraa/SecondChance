@@ -18,6 +18,8 @@ namespace SecondChance.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        private SecondChanceDB db = new SecondChanceDB();
+
         public AccountController()
         {
         }
@@ -160,6 +162,17 @@ namespace SecondChance.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+
+                    //se houve sucesso no registo, adicionar à BD o novo Utilizador
+
+                    bool addResult = AddUtilizador(model.Nome, model.Email, model.Localidade, model.Sexo, model.DataNasc);
+
+                    if (addResult)
+                        return RedirectToAction("Index", "Home");
+                    else
+                        //Devolver mensagem de erro indicando que algo correu mal com a criação do utilizador
+                        return View(model);
+
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -178,6 +191,19 @@ namespace SecondChance.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private bool AddUtilizador(string nome, string username, string localidade, string sexo, DateTime dataNasc)
+        {
+            Utilizador utilizador = new Utilizador();
+            utilizador.Nome = nome;
+            utilizador.UsernameID = username;
+            utilizador.Localidade = localidade;
+            utilizador.Sexo = sexo;
+            utilizador.DataNasc = dataNasc;
+            db.Utilizador.Add(utilizador);
+            db.SaveChanges();
+            return false;
         }
 
         //
