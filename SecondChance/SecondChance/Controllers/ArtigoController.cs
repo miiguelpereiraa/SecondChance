@@ -22,14 +22,21 @@ namespace SecondChance.Controllers
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
 
+
+            var artigos = db.Artigo.Include(a => a.Categoria).Include(a => a.Dono);
+
             ViewBag.CurrentSort = sortOrder;
 
             ViewBag.ordenarTitulo = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
             ViewBag.ordenarPreco = sortOrder == "preco" ? "preco_desc" : "preco";
             ViewBag.ordenarCategoria = sortOrder == "cat" ? "cat_desc" : "cat";
             ViewBag.ordenarNome = sortOrder == "nome" ? "nome_desc" : "nome";
-            var artigos = db.Artigo.Include(a => a.Categoria).Include(a => a.Dono);
+            ViewBag.ordenarValidado = sortOrder == "valid" ? "valid_desc" : "valid";
 
+            if (!User.IsInRole("Gestores"))
+            {
+                artigos = db.Artigo.Include(a => a.Categoria).Include(a => a.Dono).Where(a => a.Validado);
+            }
 
             if(searchString != null)
             {
@@ -70,6 +77,12 @@ namespace SecondChance.Controllers
                     break;
                 case "nome_desc":
                     artigos = artigos.OrderByDescending(a => a.Dono.Nome);
+                    break;
+                case "valid":
+                    artigos = artigos.OrderBy(a => a.Validado);
+                    break;
+                case "valid_desc":
+                    artigos = artigos.OrderByDescending(a => a.Validado);
                     break;
                 default:
                     artigos = artigos.OrderBy(a => a.Titulo);
