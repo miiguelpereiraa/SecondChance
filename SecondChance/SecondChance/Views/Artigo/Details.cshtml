@@ -53,6 +53,10 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdArtigo }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (HttpContext.Current.User.Identity.Name == Model.Dono.Nome) {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.IdArtigo })
+          @Html.ActionLink("Back to List", "Index");
+        }
+     @Html.ActionLink("Back to List", "Index")
+
 </p>
