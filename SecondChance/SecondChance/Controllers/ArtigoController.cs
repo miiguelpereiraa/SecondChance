@@ -10,6 +10,7 @@ using SecondChance.Models;
 using PagedList;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
 
 namespace SecondChance.Controllers
 {
@@ -112,21 +113,74 @@ namespace SecondChance.Controllers
         [Authorize(Roles = "Gestores, Utilizador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Titulo,Preco,Descricao,IdCategoria")] Artigo artigo)
+        public ActionResult Create([Bind(Include = "Titulo,Preco,Descricao,IdCategoria")] Artigo artigo/*, HttpPostedFileBase ficheiro*/)
         {
+
             if (ModelState.IsValid)
             {
+                var caminho = "";
 
-                //atribuir valor a idArtigo, idGestor, idDono
+                List<Multimedia> ficheiros = new List<Multimedia>();
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var ficheiro = Request.Files[i];
+                    string mimeType = ficheiro.ContentType;
+
+                    if (ficheiro != null && (mimeType == "image/jpeg" || mimeType == "image/png"))
+                    {
+
+                        Guid g;
+                        g = Guid.NewGuid();
+                        string extensao = Path.GetExtension(ficheiro.FileName).ToLower();
+                        string nomeFicheiro = g.ToString() + extensao;
+
+                        caminho = Path.Combine(Server.MapPath("~/Imagens/"), nomeFicheiro);
+
+                        Multimedia fotografia = new Multimedia()
+                        {
+                            IdArtigo = artigo.IdArtigo,
+                            Designacao = nomeFicheiro,
+                            Tipo = "fotografia"
+                        };
+
+                        db.RecMultimedia.Add(fotografia);
+
+                        ficheiro.SaveAs(caminho);
+
+                    }
+                    else
+                    {
+                        Multimedia porDefeito = new Multimedia()
+                        {
+                            IdArtigo = artigo.IdArtigo,
+                            Designacao = "defaultThumbnail.jpg",
+                            Tipo = "fotografia"
+                        };
+
+                        db.RecMultimedia.Add(porDefeito);
+                    }
+                }
+
+
+                var curUser = db.Utilizador.Where(u => u.UsernameID == User.Identity.Name).FirstOrDefault();
+                //if (curUser == null)
+                //{
+                //    return BadRequest(new { error: "Utilizador não encontrado" });
+                //}
+
+                artigo.IdDono = curUser.IdUtilizador;
+
+                //valor por defeito
+                artigo.Validado = false;
 
                 db.Artigo.Add(artigo);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Designacao", artigo.IdCategoria);
             ViewBag.IdDono = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdDono);
-            //ViewBag.IdGestor = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdGestor);
             return View(artigo);
         }
 
