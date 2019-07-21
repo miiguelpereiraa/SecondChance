@@ -67,22 +67,25 @@
             @Html.DisplayFor(modelItem => item.Descricao)
         </td>
         <td>
-            @if (User.IsInRole("Utilizador"))
-            {
-                if (User.Identity.Name == item.Dono.UsernameID)
-                {
+            @if (User.IsInRole("Utilizador")) {
+                if (User.Identity.Name == item.Dono.UsernameID) {
                     <text>
                         @Html.ActionLink("Edit", "Edit", new { id = item.IdArtigo })
                         <br />
                         @Html.ActionLink("Delete", "Delete", new { id = item.IdArtigo })
                         <br />
+                        @Html.ActionLink("Details", "Details", new { id = item.IdArtigo })
                     </text>
-                }
-                <text>
-                    @Html.ActionLink("Details", "Details", new { id = item.IdArtigo })
-                </text>
+                    }
+                else { 
+                    <text>
+                        @Html.ActionLink("Details", "Details", new { id = item.IdArtigo })
+                        <br />
+                        @Html.ActionLink("Contactar", "Create", "Mensagem")
+                    </text>
+                    }
 
-            }
+                }
         </td>
     </tr>
 }
