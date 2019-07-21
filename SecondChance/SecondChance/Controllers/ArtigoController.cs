@@ -258,7 +258,16 @@ namespace SecondChance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
             Artigo artigo = db.Artigo.Find(id);
+
+            List<Multimedia> ficheiros = db.RecMultimedia.Where(m => m.IdArtigo == id).ToList();
+
+            foreach(var ficheiro in ficheiros)
+            {
+                db.RecMultimedia.Remove(ficheiro);
+            }
+            
             db.Artigo.Remove(artigo);
             db.SaveChanges();
             return RedirectToAction("Index");

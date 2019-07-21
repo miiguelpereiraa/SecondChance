@@ -86,7 +86,7 @@
     <td>
         @if (User.IsInRole("Utilizador"))
         {
-            if (User.Identity.Name == item.Dono.UsernameID)
+            if (User.Identity.Name == item.Dono.UsernameID || User.IsInRole("Gestores"))
             {
                 <text>
                     @Html.ActionLink("Editar", "Edit", new { id = item.IdArtigo })
