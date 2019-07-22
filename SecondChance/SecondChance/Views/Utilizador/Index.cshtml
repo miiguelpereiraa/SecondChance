@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<SecondChance.Models.Utilizador>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Utilizadores";
 }
 
-<h2>Index</h2>
+<h2>Lista de Utilizadores</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -47,9 +44,9 @@
             @Html.DisplayFor(modelItem => item.DataNasc)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdUtilizador }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdUtilizador }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdUtilizador })
+            @Html.ActionLink("Editar", "Edit", new { id=item.IdUtilizador }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IdUtilizador }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdUtilizador })
         </td>
     </tr>
 }
