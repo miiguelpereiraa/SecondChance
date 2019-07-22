@@ -102,6 +102,15 @@ namespace SecondChance.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Multimedia multimedia = db.RecMultimedia.Find(id);
+
+            Artigo artigo = db.Artigo.Where(a => a.IdArtigo == multimedia.IdArtigo).FirstOrDefault();
+
+            //Não permite eliminar a imagem, caso o artigo apenas possua uma
+            if (artigo.ListaRecMultimedia.Count() == 1)
+            {
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
             if (multimedia == null)
             {
                 return HttpNotFound();

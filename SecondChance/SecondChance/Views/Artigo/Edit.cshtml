@@ -107,7 +107,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Validado, "Validado", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Validado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Validado@*, new { htmlAttributes = new { @class = "form-control" } }*@)
                 @Html.ValidationMessageFor(model => model.Validado, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -123,7 +123,7 @@
                 {
                     <li>
                         <img src="~/Imagens/@item.Designacao" alt="Image" width="100" />
-                        @Html.ActionLink("Eliminar", "../Multimedia/Delete/" + item.IdMultimedia@*, new AjaxOptions { HttpMethod = "POST"}, new { @class = "delete-link" }*@)
+                        @Html.ActionLink("Eliminar", "../Multimedia/Delete/" + item.IdMultimedia)
                     </li>
                 }
             </ul>
