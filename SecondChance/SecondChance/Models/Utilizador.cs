@@ -28,7 +28,7 @@ namespace SecondChance.Models {
         [Required(ErrorMessage = "Este campo é de preenchimento obrigatório.")]
         [StringLength(50, ErrorMessage = "O {0} deverá conter {1} caracteres no máximo.")]
         [RegularExpression("[A-ZÁÉÍÓÚ][a-záéíóúàèÌòùãõîôûâç]+(( | e | de | do | das | da | dos |-|')[A-ZÁÉÍÓÚ][a-zzáéíóúàèÌòùãõîôûâç]+)*",
-             ErrorMessage = "O {0} só pode conter letras. Cada palavra deve começar com Maiúscula.")]
+             ErrorMessage = "P.f verifique o {0} introduzido. Este deve ser composto por primeiro e ultimo nome. Cada palavra deve começar com Maiúscula. Não são aceites caracteres numéricos.")]
         public string Nome { get; set; }
 
         //Chave forasteira que liga um utilizador ao seu respectivo user
