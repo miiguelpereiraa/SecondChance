@@ -4,10 +4,10 @@
     ViewBag.Title = "Editar";
 }
 
-<h2>Edit</h2>
+<h2>Editar</h2>
 
 
-@using (Html.BeginForm("Editar", "Artigo", new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Artigo", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -17,13 +17,16 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.IdArtigo)
 
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.IdDono)
+
     <div class="container" style="width:500px;">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 @{ int i = 0;}
-                @foreach(var item in Model.ListaRecMultimedia.Skip(1))
+                @foreach (var item in Model.ListaRecMultimedia.Skip(1))
                 {
                     <li data-target="#myCarousel" data-slide-to="@i+1"></li>
                 }
@@ -32,30 +35,37 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
 
-                <div class="item active">
-                    <img src="~/Imagens/@Model.ListaRecMultimedia.FirstOrDefault().Designacao" alt="Los Angeles" width="500">
-                </div>
-
-                @foreach (var item in Model.ListaRecMultimedia.Skip(1))
+                @foreach (var item in Model.ListaRecMultimedia)
                 {
-                    <div class="item">
-                        <img src="~/Imagens/@item.Designacao" alt="Image" width="500" />
-                    </div>
+                    if (@item.Designacao == Model.ListaRecMultimedia.FirstOrDefault().Designacao)
+                    {
+
+                        <div class="item active">
+                            <img src="~/Imagens/@item.Designacao" alt="Image" width="500" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="item">
+                            <img src="~/Imagens/@item.Designacao" alt="Image" width="500" />
+                        </div>
+                    }
                 }
 
             </div>
 
             <!-- Left and right controls -->
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev" width="500">
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 <span class="sr-only">Previous</span>
             </a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next" width="500">
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 <span class="sr-only">Next</span>
             </a>
         </div>
     </div>
+
     <br />
     <hr />
     <br />
@@ -89,6 +99,34 @@
         <div class="col-md-10">
             @Html.DropDownList("IdCategoria", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.IdCategoria, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @if (User.IsInRole("Gestores"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.Validado, "Validado", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Validado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Validado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+    
+    <div class="form-group">
+        <div class="col-md-10">
+            <label>Ficheiros: </label>
+            <input type="file" name="ficheiros" multiple="multiple" />
+            <ul class="attachment">
+                <br />
+                @foreach (var item in Model.ListaRecMultimedia)
+                {
+                    <li>
+                        <img src="~/Imagens/@item.Designacao" alt="Image" width="100" />
+                        @Html.ActionLink("Eliminar", "../Multimedia/Delete/" + item.IdMultimedia@*, new AjaxOptions { HttpMethod = "POST"}, new { @class = "delete-link" }*@)
+                    </li>
+                }
+            </ul>
         </div>
     </div>
 

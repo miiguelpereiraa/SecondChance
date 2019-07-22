@@ -27,8 +27,8 @@ namespace SecondChance.Models
 
         [Display(Name = "Preço")]
         [Required(ErrorMessage = "O preenchimento do {0} é obrigatório.")]
-        [RegularExpression("^([0-9]{0,5}((.)[0-9]{0,3}))$", ErrorMessage ="Este campo apenas poderá conter números.")]
-        public decimal Preco { get; set; }
+        [RegularExpression("^([0-9]{0,5}((,)[0-9]{0,3}))$", ErrorMessage ="Este campo apenas poderá conter números.")]
+        public string Preco { get; set; }
 
         [Display(Name = "Descrição")]
         [Required(ErrorMessage = "O preenchimento da {0} é obrigatório.")]

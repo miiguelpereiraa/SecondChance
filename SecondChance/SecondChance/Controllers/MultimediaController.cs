@@ -117,7 +117,7 @@ namespace SecondChance.Controllers
             Multimedia multimedia = db.RecMultimedia.Find(id);
             db.RecMultimedia.Remove(multimedia);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("../Artigo");
         }
 
         protected override void Dispose(bool disposing)

@@ -126,7 +126,7 @@ namespace SecondChance.Controllers
         [Authorize(Roles = "Gestores, Utilizador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Titulo,Preco,Descricao,IdCategoria")] Artigo artigo/*, HttpPostedFileBase ficheiro*/)
+        public ActionResult Create([Bind(Include = "Titulo,Preco,Descricao,IdCategoria")] Artigo artigo)
         {
 
             if (ModelState.IsValid)
@@ -176,11 +176,6 @@ namespace SecondChance.Controllers
 
 
                 var curUser = db.Utilizador.Where(u => u.UsernameID == User.Identity.Name).FirstOrDefault();
-                //if (curUser == null)
-                //{
-                //    return BadRequest(new { error: "Utilizador não encontrado" });
-                //}
-
                 artigo.IdDono = curUser.IdUtilizador;
 
                 //valor por defeito
@@ -212,7 +207,6 @@ namespace SecondChance.Controllers
             }
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Designacao", artigo.IdCategoria);
             ViewBag.IdDono = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdDono);
-            //ViewBag.IdGestor = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdGestor);
             return View(artigo);
         }
 
@@ -222,17 +216,49 @@ namespace SecondChance.Controllers
         [Authorize(Roles = "Gestores, Utilizador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdArtigo,Titulo,Preco,Descricao,IdGestor,IdDono,IdCategoria")] Artigo artigo)
+        public ActionResult Edit([Bind(Include = "IdArtigo,Titulo,Preco,Descricao,IdDono,IdGestor,IdCategoria,Validado")] Artigo artigo)
         {
             if (ModelState.IsValid)
             {
+                //inserção de novas imagens
+                var caminho = "";
+
+                List<Multimedia> ficheiros = new List<Multimedia>();
+                for (int i = 0; i < Request.Files.Count; i++)
+                {
+                    var ficheiro = Request.Files[i];
+                    string mimeType = ficheiro.ContentType;
+
+                    if (ficheiro != null && (mimeType == "image/jpeg" || mimeType == "image/png"))
+                    {
+
+                        Guid g;
+                        g = Guid.NewGuid();
+                        string extensao = Path.GetExtension(ficheiro.FileName).ToLower();
+                        string nomeFicheiro = g.ToString() + extensao;
+
+                        caminho = Path.Combine(Server.MapPath("~/Imagens/"), nomeFicheiro);
+
+                        Multimedia fotografia = new Multimedia()
+                        {
+                            IdArtigo = artigo.IdArtigo,
+                            Designacao = nomeFicheiro,
+                            Tipo = "fotografia"
+                        };
+
+                        db.RecMultimedia.Add(fotografia);
+
+                        ficheiro.SaveAs(caminho);
+
+                    }
+                }
+
                 db.Entry(artigo).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Designacao", artigo.IdCategoria);
             ViewBag.IdDono = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdDono);
-            //ViewBag.IdGestor = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdGestor);
             return View(artigo);
         }
 
