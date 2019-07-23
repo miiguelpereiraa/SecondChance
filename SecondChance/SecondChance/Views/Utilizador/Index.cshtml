@@ -26,29 +26,58 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UsernameID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Localidade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Sexo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataNasc)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.IdUtilizador }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.IdUtilizador }) |
-            @Html.ActionLink("Eliminar", "Delete", new { id=item.IdUtilizador })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        if (!User.IsInRole("Gestores"))
+        {
+            if (item.UsernameID == User.Identity.Name)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UsernameID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Localidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sexo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataNasc)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.IdUtilizador })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UsernameID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Localidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sexo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataNasc)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.IdUtilizador }) |
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.IdUtilizador })
+                </td>
+            </tr>
+        }
+    }
 
 </table>

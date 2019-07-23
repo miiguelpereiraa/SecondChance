@@ -19,23 +19,29 @@ namespace SecondChance.Controllers
         // GET: Categoria
         public ActionResult Index()
         {
+            //Se o utilizador que está a tentar aceder não pertence á role Gestores, redireccionar para a página inicial
+            if (!User.IsInRole("Gestores"))
+            {
+                return RedirectToAction("../Artigo");
+            }
+
             return View(db.Categoria.ToList());
         }
 
-        // GET: Categoria/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Categoria categoria = db.Categoria.Find(id);
-            if (categoria == null)
-            {
-                return HttpNotFound();
-            }
-            return View(categoria);
-        }
+        //// GET: Categoria/Details/5
+        //public ActionResult Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Categoria categoria = db.Categoria.Find(id);
+        //    if (categoria == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(categoria);
+        //}
 
         // GET: Categoria/Create
         public ActionResult Create()
@@ -50,6 +56,11 @@ namespace SecondChance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdCategoria,Designacao")] Categoria categoria)
         {
+            //Se o utilizador que está a tentar aceder não pertence á role Gestores, redireccionar para a página inicial
+            if (!User.IsInRole("Gestores"))
+            {
+                return RedirectToAction("../Artigo");
+            }
             if (ModelState.IsValid)
             {
                 db.Categoria.Add(categoria);
@@ -83,6 +94,11 @@ namespace SecondChance.Controllers
         // GET: Categoria/Edit/5
         public ActionResult Edit(int? id)
         {
+            //Se o utilizador que está a tentar aceder não pertence á role Gestores, redireccionar para a página inicial
+            if (!User.IsInRole("Gestores"))
+            {
+                return RedirectToAction("../Artigo");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,6 +130,11 @@ namespace SecondChance.Controllers
         // GET: Categoria/Delete/5
         public ActionResult Delete(int? id)
         {
+            //Se o utilizador que está a tentar aceder não pertence á role Gestores, redireccionar para a página inicial
+            if (!User.IsInRole("Gestores"))
+            {
+                return RedirectToAction("../Artigo");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

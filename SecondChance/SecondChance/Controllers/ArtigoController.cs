@@ -196,10 +196,22 @@ namespace SecondChance.Controllers
         // GET: Artigo/Edit/5
         public ActionResult Edit(int? id)
         {
+            //Obtém o id do dono do artigo
+            var userArtigo = db.Artigo.Where(a => a.IdArtigo == id).FirstOrDefault().IdDono;
+            //Obtém o username do dono do artigo
+            var username = db.Utilizador.Where(u => u.IdUtilizador == userArtigo).FirstOrDefault().UsernameID;
+
+            //Se o username do utilizador que está a solicitar a edição for diferente do username do dono do artigo ou se não for gestor, retornar a página inicial
+            if(User.Identity.Name != username && !User.IsInRole("Gestores"))
+            {
+                return RedirectToAction("../Artigo");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Artigo artigo = db.Artigo.Find(id);
             if (artigo == null)
             {
@@ -266,6 +278,18 @@ namespace SecondChance.Controllers
         // GET: Artigo/Delete/5
         public ActionResult Delete(int? id)
         {
+            //Obtém o id do dono do artigo
+            var userArtigo = db.Artigo.Where(a => a.IdArtigo == id).FirstOrDefault().IdDono;
+            //Obtém o username do dono do artigo
+            var username = db.Utilizador.Where(u => u.IdUtilizador == userArtigo).FirstOrDefault().UsernameID;
+
+            //Se o username do utilizador que está a solicitar a edição for diferente do username do dono do artigo ou se não for gestor, retornar a página inicial
+            if (User.Identity.Name != username && !User.IsInRole("Gestores"))
+            {
+                return RedirectToAction("../Artigo");
+            }
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
