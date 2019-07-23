@@ -126,7 +126,7 @@ namespace SecondChance.Controllers
         [Authorize(Roles = "Gestores, Utilizador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Titulo,Preco,Descricao,IdCategoria")] Artigo artigo)
+        public ActionResult Create([Bind(Include = "Titulo,Preco,Descricao,Contacto,IdCategoria")] Artigo artigo)
         {
 
             if (ModelState.IsValid)
@@ -216,7 +216,7 @@ namespace SecondChance.Controllers
         [Authorize(Roles = "Gestores, Utilizador")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdArtigo,Titulo,Preco,Descricao,IdDono,IdGestor,IdCategoria,Validado")] Artigo artigo)
+        public ActionResult Edit([Bind(Include = "IdArtigo,Titulo,Preco,Descricao,Contacto,IdDono,IdGestor,IdCategoria,Validado")] Artigo artigo)
         {
             if (ModelState.IsValid)
             {

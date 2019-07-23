@@ -35,6 +35,9 @@ namespace SecondChance.Models
         [StringLength(500, ErrorMessage = "O {0} deverá ter, no máximo, {1} caracteres.")]
         public string Descricao { get; set; }
 
+        [Required(ErrorMessage = "O preenchimento do {0} é obrigatório.")]
+        public string Contacto { get; set; }
+
         public bool Validado { get; set; }
 
         ////Chave Forasteira para identificar o Gestor do Artigo

@@ -121,12 +121,12 @@ namespace SecondChance.Migrations
 
             var artigos = new List<Artigo>
             {
-                new Artigo {IdArtigo=1, Titulo="Macbook Air 13", Preco="350", Descricao="Computador em óptimo estado.", Validado=false, IdDono=1, IdCategoria=1},
-                new Artigo {IdArtigo=2, Titulo="Guitarra Elétrica Fender", Preco="150", Descricao="Guitarra em bom estado, com cordas novas.", Validado=true, IdDono=3, IdCategoria=7},
-                new Artigo {IdArtigo=3, Titulo="BMW 318", Preco="10000", Descricao="Carro como novo, apenas com pneus novos.", Validado=true, IdDono=2, IdCategoria=6},
-                new Artigo {IdArtigo=4, Titulo="Cozinha de brincar", Preco="25", Descricao="Cozinha para crianças até 3 anos.", Validado=true, IdDono=4, IdCategoria=2},
-                new Artigo {IdArtigo=5, Titulo="Berbequim", Preco="100", Descricao="Berbequim em bom estado e inclui 5 brocas.", Validado=true, IdDono=2, IdCategoria=8},
-                new Artigo {IdArtigo=6, Titulo="Vestido Azul", Preco="15", Descricao="Vestido formal usado apenas duas vezes.", Validado=true, IdDono=3, IdCategoria=5},
+                new Artigo {IdArtigo=1, Titulo="Macbook Air 13", Preco="350", Descricao="Computador em óptimo estado.", Validado=false, Contacto="miguelpe@example.com", IdDono=1, IdCategoria=1},
+                new Artigo {IdArtigo=2, Titulo="Guitarra Elétrica Fender", Preco="150", Descricao="Guitarra em bom estado, com cordas novas.", Validado=true, Contacto="jarmando@example.com", IdDono=3, IdCategoria=7},
+                new Artigo {IdArtigo=3, Titulo="BMW 318", Preco="10000", Descricao="Carro como novo, com pneus novos.", Validado=true, Contacto="tiagoro@example.com", IdDono=2, IdCategoria=6},
+                new Artigo {IdArtigo=4, Titulo="Cozinha de brincar", Preco="25", Descricao="Cozinha para crianças até 3 anos.", Validado=true, Contacto="jsantos@example.com", IdDono=4, IdCategoria=2},
+                new Artigo {IdArtigo=5, Titulo="Berbequim", Preco="100", Descricao="Berbequim em bom estado e inclui 5 brocas.", Validado=true, Contacto="tiagoro@example.com", IdDono=2, IdCategoria=8},
+                new Artigo {IdArtigo=6, Titulo="Vestido Azul", Preco="15", Descricao="Vestido formal usado apenas duas vezes.", Validado=true, Contacto="jarmando@example.com", IdDono=3, IdCategoria=5},
             };
             artigos.ForEach(aa => context.Artigo.AddOrUpdate(a => a.IdArtigo, aa));
             context.SaveChanges();
