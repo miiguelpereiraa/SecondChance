@@ -120,6 +120,11 @@ namespace SecondChance.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Utilizador utilizador = db.Utilizador.Find(id);
+            //Caso o utilizador tenha artigos associados,não permite eliminar o mesmo
+            if (utilizador.ListaArtigos.Count() != 0)
+            {
+                return RedirectToAction("../Artigo");
+            }
             db.Utilizador.Remove(utilizador);
             db.SaveChanges();
             return RedirectToAction("Index");

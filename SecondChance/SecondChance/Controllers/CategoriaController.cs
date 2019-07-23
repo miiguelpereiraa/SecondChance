@@ -118,6 +118,11 @@ namespace SecondChance.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Categoria categoria = db.Categoria.Find(id);
+            //Não permite eliminar a categoria, se esta possuir artigos associados
+            if (categoria.ListaArtigos.Count() != 0)
+            {
+                return RedirectToAction("../Artigo");
+            }
             db.Categoria.Remove(categoria);
             db.SaveChanges();
             return RedirectToAction("Index");
