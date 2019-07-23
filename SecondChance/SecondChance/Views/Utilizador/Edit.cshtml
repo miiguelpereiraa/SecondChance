@@ -52,7 +52,6 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataNasc, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@{string data = Model.DataNasc.ToString("yyyy-MM-dd");}*@
                 <input type="date" class="form-control" name="DataNasc" value="@Model.DataNasc.ToString("yyyy-MM-dd")" />
                 @Html.ValidationMessageFor(model => model.DataNasc, "", new { @class = "text-danger" })
             </div>
