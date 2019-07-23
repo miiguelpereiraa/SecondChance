@@ -40,10 +40,6 @@ namespace SecondChance.Models
 
         public bool Validado { get; set; }
 
-        ////Chave Forasteira para identificar o Gestor do Artigo
-        //public int IdGestor { get; set; }
-        //public virtual Utilizador Gestor { get; set; }
-
         //Chave Forasteira para identificar o Dono do Artigo
         public int IdDono { get; set; }
         public virtual Utilizador Dono { get; set; }

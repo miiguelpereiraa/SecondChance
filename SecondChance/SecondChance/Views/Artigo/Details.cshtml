@@ -9,7 +9,7 @@
 <div>
     <h4>Artigo</h4>
     <hr />
-
+    @* Slider de imagens *@
     <div class="container" style="width:500px;">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -110,11 +110,11 @@
 </div>
 <p>
     @if (User.Identity.Name == Model.Dono.UsernameID) {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.IdArtigo }) 
+        @Html.ActionLink("Editar", "Edit", new { id = Model.IdArtigo }) 
         <text> | </text>
-        @Html.ActionLink("Back to List", "Index");
+        @Html.ActionLink("Voltar", "Index");
         }
-    else {@Html.ActionLink("Back to List", "Index")}
+    else {@Html.ActionLink("Voltar", "Index")}
 
 
 </p>

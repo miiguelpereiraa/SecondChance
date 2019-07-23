@@ -19,6 +19,7 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.IdDono)
 
+    @* Slider de imagens *@
     <div class="container" style="width:500px;">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
@@ -114,12 +115,13 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Validado, "Validado", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Validado@*, new { htmlAttributes = new { @class = "form-control" } }*@)
+                @Html.EditorFor(model => model.Validado)
                 @Html.ValidationMessageFor(model => model.Validado, "", new { @class = "text-danger" })
             </div>
         </div>
     }
 
+    @* Eliminação das imagens *@
     <div class="form-group">
         <div class="col-md-10">
             <label>Ficheiros: </label>
@@ -131,6 +133,7 @@
                     <li>
                         <img src="~/Imagens/@item.Designacao" alt="Image" width="100" />
                         @Html.ActionLink("Eliminar", "../Multimedia/Delete/" + item.IdMultimedia)
+                        <hr />
                     </li>
                 }
             </ul>

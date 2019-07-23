@@ -17,82 +17,14 @@ namespace SecondChance.Controllers
         // GET: Multimedia
         public ActionResult Index()
         {
+            //Caso o user não pertenca a role Gestores nem Utilizadores, redireccionar para a página inicial
+            if (!User.IsInRole("Gestores") && !User.IsInRole("Utilizador"))
+            {
+                return RedirectToAction("../Artigo");
+            }
             var recMultimedia = db.RecMultimedia.Include(m => m.Artigo);
             return View(recMultimedia.ToList());
         }
-
-        // GET: Multimedia/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Multimedia multimedia = db.RecMultimedia.Find(id);
-            if (multimedia == null)
-            {
-                return HttpNotFound();
-            }
-            return View(multimedia);
-        }
-
-        // GET: Multimedia/Create
-        public ActionResult Create()
-        {
-            ViewBag.IdArtigo = new SelectList(db.Artigo, "IdArtigo", "Titulo");
-            return View();
-        }
-
-        // POST: Multimedia/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdMultimedia,Designacao,Tipo,IdArtigo")] Multimedia multimedia)
-        {
-            if (ModelState.IsValid)
-            {
-                db.RecMultimedia.Add(multimedia);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.IdArtigo = new SelectList(db.Artigo, "IdArtigo", "Titulo", multimedia.IdArtigo);
-            return View(multimedia);
-        }
-
-        //// GET: Multimedia/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Multimedia multimedia = db.RecMultimedia.Find(id);
-        //    if (multimedia == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.IdArtigo = new SelectList(db.Artigo, "IdArtigo", "Titulo", multimedia.IdArtigo);
-        //    return View(multimedia);
-        //}
-
-        //// POST: Multimedia/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "IdMultimedia,Designacao,Tipo,IdArtigo")] Multimedia multimedia)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(multimedia).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.IdArtigo = new SelectList(db.Artigo, "IdArtigo", "Titulo", multimedia.IdArtigo);
-        //    return View(multimedia);
-        //}
 
         // GET: Multimedia/Delete/5
         public ActionResult Delete(int? id)
@@ -101,8 +33,11 @@ namespace SecondChance.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            
+            //Encontrar a imagem desejada
             Multimedia multimedia = db.RecMultimedia.Find(id);
 
+            //Encontrar o artigo a que a imagem pertence
             Artigo artigo = db.Artigo.Where(a => a.IdArtigo == multimedia.IdArtigo).FirstOrDefault();
 
             //Não permite eliminar a imagem, caso o artigo apenas possua uma
@@ -123,8 +58,11 @@ namespace SecondChance.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            //Encontrar a imagem pertendida
             Multimedia multimedia = db.RecMultimedia.Find(id);
+            //Eliminar a imagem
             db.RecMultimedia.Remove(multimedia);
+            //Guardar as alterações
             db.SaveChanges();
             return RedirectToAction("../Artigo");
         }

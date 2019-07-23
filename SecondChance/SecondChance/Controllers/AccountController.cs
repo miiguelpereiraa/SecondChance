@@ -82,9 +82,9 @@ namespace SecondChance.Controllers
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
+                //redirecciona o utilizador para a página inicial
                 case SignInStatus.Success:
                     return RedirectToAction("Index", "Artigo");
-                    //return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -161,17 +161,21 @@ namespace SecondChance.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Novo user
                 var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                //Cria o novo user com a password fornecida
                 var result = await UserManager.CreateAsync(user, model.Password);
-                userManager.AddToRole(user.Id, "Utilizador");
+                //se houve sucesso
                 if (result.Succeeded)
                 {
-
+                    //Adicionar o user criado a role dos utilizadores
+                    userManager.AddToRole(user.Id, "Utilizador");
+                    
                     //se houve sucesso no registo, adicionar à BD o novo Utilizador
-
                     bool addResult = AddUtilizador(model.Nome, model.Email, model.Localidade, model.Sexo, model.DataNasc);
 
+                    //Se gouve sucesso com a adição do novo utilizador, redireccionar para a página inicial
                     if (addResult)
                         return RedirectToAction("Index", "Artigo");
                     else
@@ -181,34 +185,24 @@ namespace SecondChance.Controllers
                 AddErrors(result);
             }
 
-            // If we got this far, something failed, redisplay form
+            // Se chegou aqui, algo correu mal, mostrar novamente o formulário
             return View(model);
         }
 
         private bool AddUtilizador(string nome, string username, string localidade, string sexo, DateTime dataNasc)
         {
-            try { 
-                Utilizador utilizador = new Utilizador();
-                utilizador.Nome = nome;
-                utilizador.UsernameID = username;
-                utilizador.Localidade = localidade;
-                utilizador.Sexo = sexo;
-                utilizador.DataNasc = dataNasc.Date;
-                db.Utilizador.Add(utilizador);
-                db.SaveChanges();
-                return true;
-            }
-            catch (DbEntityValidationException dbEx)
-            {
-                foreach (var validationErrors in dbEx.EntityValidationErrors)
-                {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                    }
-                }
-            }
-            return false;
+            //Criação de um novo utilizador
+            Utilizador utilizador = new Utilizador();
+            utilizador.Nome = nome;
+            utilizador.UsernameID = username;
+            utilizador.Localidade = localidade;
+            utilizador.Sexo = sexo;
+            utilizador.DataNasc = dataNasc.Date;
+            //Adiciona novo utilizador á base de dados
+            db.Utilizador.Add(utilizador);
+            //Guardar as alterações
+            db.SaveChanges();
+            return true;
         }
 
         //

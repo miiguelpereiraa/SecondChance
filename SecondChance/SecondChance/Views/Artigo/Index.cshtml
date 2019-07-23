@@ -1,4 +1,6 @@
-﻿@model PagedList.IPagedList<SecondChance.Models.Artigo>
+﻿@* Indica que a view recebe um objecto do tipo PagedList *@
+@model PagedList.IPagedList<SecondChance.Models.Artigo>
+@* MVC helper para os botões de paginação *@
 @using PagedList.Mvc
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -110,5 +112,6 @@
 
 </table>
 <br />
+@* Número de Página e botões de paginação *@
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}))

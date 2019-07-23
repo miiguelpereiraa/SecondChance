@@ -11,7 +11,6 @@ namespace SecondChance.Controllers
         public ActionResult Index()
         {
             return RedirectToAction("Index", "Artigo");
-            //return View();
         }
 
         public ActionResult About()

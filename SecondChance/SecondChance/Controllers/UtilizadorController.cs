@@ -18,7 +18,7 @@ namespace SecondChance.Controllers
         // GET: Utilizador
         public ActionResult Index()
         {
-            //Se o utilizador que está a tentar aceder não pertence á role Gestores, redireccionar para a página inicial
+            //Se o utilizador que está a tentar aceder não pertence á role Gestores nem Utilizadores, redireccionar para a página inicial
             if (!User.IsInRole("Gestores") && !User.IsInRole("Utilizador"))
             {
                 return RedirectToAction("../Artigo");
@@ -42,35 +42,6 @@ namespace SecondChance.Controllers
             return View(utilizador);
         }
 
-        //// GET: Utilizador/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: Utilizador/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "Nome,UsernameID,Localidade,Sexo,DataNasc")] Utilizador utilizador)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            db.Utilizador.Add(utilizador);
-        //            db.SaveChanges();
-        //            return RedirectToAction("Index");
-        //        }catch (Exception)
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return View(utilizador);
-        //}
-
         // GET: Utilizador/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -82,7 +53,6 @@ namespace SecondChance.Controllers
             {
                 Utilizador user = db.Utilizador.Find(id);
                 return View(user);
-                //return RedirectToAction("../Utilizador/Edit/"+id);
             }
 
             //Se o utilizador é gestor
@@ -102,11 +72,6 @@ namespace SecondChance.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            //Utilizador utilizador = db.Utilizador.Find(id);
-            //if (utilizador == null)
-            //{
-            //    return HttpNotFound();
-            //}
             return RedirectToAction("../Artigo");
         }
 

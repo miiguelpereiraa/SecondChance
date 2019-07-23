@@ -28,6 +28,7 @@
 
     @foreach (var item in Model)
     {
+        //Caso o utilizador a aceder à informação não pertença a role dos gestores, apenas irá apresentar a sua informação
         if (!User.IsInRole("Gestores"))
         {
             if (item.UsernameID == User.Identity.Name)
@@ -54,6 +55,7 @@
                 </tr>
             }
         }
+        //Listar todos os utilizadores, caso o utilizador a tentar aceder a informação pertença a role dos Gestores
         else
         {
             <tr>

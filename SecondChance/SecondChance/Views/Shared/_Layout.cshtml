@@ -22,7 +22,6 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @*<li>@Html.ActionLink("Home", "Index", "Home")</li>*@
                     @* Mosta os botões categorias e utilizadores apenas a gestores *@
                     @if (User.IsInRole("Gestores"))
                     {
@@ -38,7 +37,6 @@
                     {
                         <li>@Html.ActionLink("Editar meus dados", "../Utilizador")</li>
                     }
-                    @*<li>@Html.ActionLink("Sobre Nós", "About", "Home")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

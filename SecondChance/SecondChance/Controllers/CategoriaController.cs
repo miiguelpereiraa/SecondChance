@@ -28,21 +28,6 @@ namespace SecondChance.Controllers
             return View(db.Categoria.ToList());
         }
 
-        //// GET: Categoria/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Categoria categoria = db.Categoria.Find(id);
-        //    if (categoria == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(categoria);
-        //}
-
         // GET: Categoria/Create
         public ActionResult Create()
         {
@@ -70,26 +55,6 @@ namespace SecondChance.Controllers
 
             return View(categoria);
         }
-
-        private bool AddCategoria(string designacao) {
-            try {
-                Categoria categoria = new Categoria();
-                categoria.Designacao = designacao;
-                
-                db.Categoria.Add(categoria);
-                db.SaveChanges();
-                return true;
-                }
-            catch (DbEntityValidationException dbEx) {
-                foreach (var validationErrors in dbEx.EntityValidationErrors) {
-                    foreach (var validationError in validationErrors.ValidationErrors) {
-                        Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-                        }
-                    }
-                }
-            return false;
-            }
-
 
         // GET: Categoria/Edit/5
         public ActionResult Edit(int? id)

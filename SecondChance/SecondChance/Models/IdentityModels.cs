@@ -51,12 +51,6 @@ namespace SecondChance.Models{
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
 
-            //modelBuilder.Entity<Artigo>()
-            //            .HasRequired(m => m.Gestor)
-            //            .WithMany(t => t.ListaArtigosAvaliados)
-            //            .HasForeignKey(m => m.IdGestor)
-            //            .WillCascadeOnDelete(false);
-
             modelBuilder.Entity<Artigo>()
                         .HasRequired(m => m.Dono)
                         .WithMany(t => t.ListaArtigos)
