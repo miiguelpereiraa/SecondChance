@@ -226,10 +226,8 @@ namespace SecondChance.Controllers
                 return RedirectToAction("../Artigo");
             }
 
-            //Obtém o id do dono do artigo
-            //var userArtigo = db.Artigo.Where(a => a.IdArtigo == id).FirstOrDefault().IdDono;
             //Obtém o username do dono do artigo
-            var user = db.Utilizador.Where(u => u.IdUtilizador == artigo.IdDono).FirstOrDefault();//.UsernameID;
+            var user = db.Utilizador.Where(u => u.IdUtilizador == artigo.IdDono).FirstOrDefault();
 
             if (user == null)
             {
