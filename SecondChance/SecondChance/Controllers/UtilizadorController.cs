@@ -46,24 +46,27 @@ namespace SecondChance.Controllers
         public ActionResult Edit(int? id)
         {
             //Obtém o username do utilizador a editar
-            var username = db.Utilizador.Where(u => u.IdUtilizador == id).FirstOrDefault().UsernameID;
+            var user = db.Utilizador.Find(id);
+
+            if(user == null)
+            {
+                return RedirectToAction("../Artigo");
+            }
 
             //Se o utilizador não é gestor mas está a tentar editar a sua própria informação
-            if(User.Identity.Name == username)
+            if(User.Identity.Name == user.UsernameID)
             {
-                Utilizador user = db.Utilizador.Find(id);
                 return View(user);
             }
 
             //Se o utilizador é gestor
             if (User.IsInRole("Gestores"))
             {
-                Utilizador utilizador = db.Utilizador.Find(id);
-                return View(utilizador);
+                return View(user);
             }
 
             //Se o username do utilizador que está a solicitar a edição for diferente do username do utilizador a editar ou se não for gestor, retornar a página inicial
-            if (User.Identity.Name != username && !User.IsInRole("Gestores"))
+            if (User.Identity.Name != user.UsernameID && !User.IsInRole("Gestores"))
             {
                 return RedirectToAction("../Artigo");
             }

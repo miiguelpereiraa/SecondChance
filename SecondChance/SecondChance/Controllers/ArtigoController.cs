@@ -218,13 +218,26 @@ namespace SecondChance.Controllers
         // GET: Artigo/Edit/5
         public ActionResult Edit(int? id)
         {
+            //Obtém o artigo a editar
+            var artigo = db.Artigo.Find(id);
+
+            if(artigo == null)
+            {
+                return RedirectToAction("../Artigo");
+            }
+
             //Obtém o id do dono do artigo
-            var userArtigo = db.Artigo.Where(a => a.IdArtigo == id).FirstOrDefault().IdDono;
+            //var userArtigo = db.Artigo.Where(a => a.IdArtigo == id).FirstOrDefault().IdDono;
             //Obtém o username do dono do artigo
-            var username = db.Utilizador.Where(u => u.IdUtilizador == userArtigo).FirstOrDefault().UsernameID;
+            var user = db.Utilizador.Where(u => u.IdUtilizador == artigo.IdDono).FirstOrDefault();//.UsernameID;
+
+            if (user == null)
+            {
+                return RedirectToAction("../Artigo");
+            }
 
             //Se o username do utilizador que está a solicitar a edição for diferente do username do dono do artigo ou se não for gestor, retornar a página inicial
-            if(User.Identity.Name != username && !User.IsInRole("Gestores"))
+            if (User.Identity.Name != user.UsernameID && !User.IsInRole("Gestores"))
             {
                 return RedirectToAction("../Artigo");
             }
@@ -234,11 +247,6 @@ namespace SecondChance.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Artigo artigo = db.Artigo.Find(id);
-            if (artigo == null)
-            {
-                return HttpNotFound();
-            }
             ViewBag.IdCategoria = new SelectList(db.Categoria, "IdCategoria", "Designacao", artigo.IdCategoria);
             ViewBag.IdDono = new SelectList(db.Utilizador, "IdUtilizador", "Nome", artigo.IdDono);
             return View(artigo);
